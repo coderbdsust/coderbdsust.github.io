@@ -210,6 +210,7 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
 .oss-row a:hover{ color:var(--accent); }
 .oss-row time{ display:block; font-family:"JetBrains Mono",monospace; font-size:.66rem; color:var(--faint);
   margin-top:.15rem; letter-spacing:.04em; }
+.oss-row .oss-n{ color:var(--faint); font-size:.62rem; }
 
 /* footer */
 .cv-foot{ padding:1.1rem clamp(1.4rem,4vw,3.2rem); border-top:1px solid var(--rule);
@@ -451,7 +452,7 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
           </article>
         </section>
 
-        <section class="sec rv">
+         <section class="sec rv">
           <h3 class="sec-h">Education</h3>
 
           <div class="edu">
@@ -535,12 +536,40 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
 <script>
 /* ---------- helpers ---------- */
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
-const RENAME = { "tallyapp-ui":"TallyApp-UI","pos":"Point of Sale","payment":"CBD Payment","datavis-assignment":"Data Visualisation","log-summarizer":"Log Summarizer","material-admin":"Material Admin" };
+const RENAME = { "tallyapp-ui":"TallyApp","pos":"Point of Sale","payment":"CBD Payment","datavis-assignment":"Data Visualisation","log-summarizer":"Log Summarizer","material-admin":"Material Admin" };
 const ACR = ["UI","API","POS","CBD","JS","TS","SQL","AI","ML","PDF","CRUD","REST","HR","ERP"];
 function pretty(slug){
   if(RENAME[slug]) return RENAME[slug];
   return slug.replace(/[-_.]+/g," ").replace(/([a-z\d])([A-Z])/g,"$1 $2").trim()
     .split(/\s+/).map(w => ACR.includes(w.toUpperCase()) ? w.toUpperCase() : w[0].toUpperCase()+w.slice(1)).join(" ");
+}
+
+/* Common role suffixes that mark two repos as the same project split in parts. */
+const SUFFIX = /[-_.](ui|api|app|web|backend|frontend|server|client|services?|mobile|admin|core|demo|www|site|v\d+)$/i;
+function baseKey(name){
+  let k = name.toLowerCase(), prev;
+  do{ prev = k; k = k.replace(SUFFIX, ""); }while(k !== prev);   // strip repeated suffixes
+  return k.replace(/[-_.\s]+/g, "");
+}
+/* Group repos with similar names into one entry each (e.g. tallyapp-ui + tallyapp-api → TallyApp). */
+function mergeSimilar(list){
+  const groups = new Map();
+  list.forEach(x => {
+    const k = baseKey(x.name) || x.name.toLowerCase();
+    (groups.get(k) || groups.set(k, []).get(k)).push(x);
+  });
+  return [...groups.values()].map(g => {
+    g.sort((a,b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+    const rep = g[0];
+    const renamed = g.map(r => RENAME[r.name]).find(Boolean);
+    const title = renamed || pretty(rep.name.replace(SUFFIX, ""));
+    return {
+      title, url:rep.html_url, count:g.length,
+      hasDesc:g.some(r => r.description),
+      year:Math.max(...g.map(r => new Date(r.pushed_at).getFullYear())),
+      pushed:Math.max(...g.map(r => +new Date(r.pushed_at)))
+    };
+  });
 }
 
 /* ---------- theme ---------- */
@@ -569,11 +598,13 @@ document.getElementById("yr").textContent = new Date().toLocaleDateString("en-GB
     const latest = mine[0] ? new Date(mine[0].pushed_at).toLocaleDateString("en-GB",{ day:"numeric", month:"short", year:"numeric" }) : "—";
     document.getElementById("sync").textContent = `${u.public_repos} public repositories · last push ${latest}`;
 
-    const top = mine.filter(x => x.description).slice(0,5);
-    document.getElementById("oss").innerHTML = (top.length ? top : mine.slice(0,5)).map(x => `
+    const groups = mergeSimilar(mine).sort((a,b) => b.pushed - a.pushed);
+    const described = groups.filter(g => g.hasDesc);
+    const use = (described.length ? described : groups).slice(0,5);
+    document.getElementById("oss").innerHTML = use.map(x => `
       <div class="oss-row">
-        <a href="${esc(x.html_url)}" target="_blank" rel="noopener">${esc(pretty(x.name))}</a>
-        <time>${new Date(x.pushed_at).getFullYear()}</time>
+        <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}${x.count>1 ? ` <span class="oss-n">×${x.count}</span>` : ""}</a>
+        <time>${x.year}</time>
       </div>`).join("");
   }catch(e){
     document.getElementById("sync").textContent = "github.com/coderbdsust";
