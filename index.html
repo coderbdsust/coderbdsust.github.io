@@ -103,11 +103,15 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
   border-bottom:1px solid var(--rule);
   display:grid; grid-template-columns:auto 1fr; gap:clamp(1rem,3vw,1.8rem); align-items:center;
 }
+/* avatar / photo */
 .avatar{
-  width:74px; height:74px; border-radius:12px; background:var(--accent); color:var(--on-accent);
-  display:grid; place-items:center; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:1.7rem;
-  letter-spacing:.02em; flex:none;
+  position:relative; width:150px; height:150px; border-radius:4px; overflow:hidden; flex:none;
+  background:var(--accent); color:var(--on-accent); display:grid; place-items:center;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
 }
+.avatar img{ width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+.avatar .mono{ display:none; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:1.9rem; letter-spacing:.02em; }
+.avatar.no-photo .mono{ display:block; }
 .name{ font-family:"Space Grotesk",sans-serif; font-weight:700; letter-spacing:-.02em;
   font-size:clamp(1.7rem,1.1rem + 2.6vw,2.5rem); line-height:1.05; margin:0; }
 .subtitle{ font-family:"JetBrains Mono",monospace; font-size:clamp(.76rem,.72rem + .2vw,.9rem);
@@ -241,8 +245,8 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
   .sheet-wrap{ padding:0; }
   .sheet{ max-width:none; box-shadow:none; border-radius:0; animation:none; opacity:1; transform:none; }
   .rv{ opacity:1 !important; transform:none !important; }
-  .avatar{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .chip--pri, .avatar, .sec-h::before{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .avatar, .avatar img{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .chip--pri, .sec-h::before{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .xp, .proj, .edu, .sec{ break-inside:avoid; }
   .sync .dot{ animation:none; }
 }
@@ -272,7 +276,11 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
 
     <!-- HEADER -->
     <header class="cv-head">
-      <div class="avatar">BD</div>
+      <div class="avatar" id="avatar">
+        <img src="photo.jpg" alt="Biswajit Debnath"
+             onerror="var a=document.getElementById('avatar'); a.classList.add('no-photo'); this.remove();">
+        <span class="mono">BD</span>
+      </div>
       <div>
         <h1 class="name">Biswajit Debnath</h1>
         <p class="subtitle">Senior Software Engineer · Fintech &amp; Full-Stack</p>
@@ -546,12 +554,16 @@ function pretty(slug){
 
 /* Common role suffixes that mark two repos as the same project split in parts. */
 const SUFFIX = /[-_.](ui|api|app|web|backend|frontend|server|client|services?|mobile|admin|core|demo|www|site|v\d+)$/i;
-function baseKey(name){
-  let k = name.toLowerCase(), prev;
-  do{ prev = k; k = k.replace(SUFFIX, ""); }while(k !== prev);   // strip repeated suffixes
-  return k.replace(/[-_.\s]+/g, "");
+function stripSuffix(name){                       // strip every trailing role-suffix
+  let k = name, prev;
+  do{ prev = k; k = k.replace(SUFFIX, ""); }while(k !== prev);
+  return k;
 }
-/* Group repos with similar names into one entry each (e.g. tallyapp-ui + tallyapp-api → TallyApp). */
+function baseKey(name){
+  return stripSuffix(name.toLowerCase()).replace(/[-_.\s]+/g, "");
+}
+/* Group repos with similar names into one entry each
+   (e.g. tallyapp + tallyapp-ui → TallyApp, payment-orchestrator + payment-orchestrator-admin → Payment Orchestrator). */
 function mergeSimilar(list){
   const groups = new Map();
   list.forEach(x => {
@@ -562,7 +574,7 @@ function mergeSimilar(list){
     g.sort((a,b) => new Date(b.pushed_at) - new Date(a.pushed_at));
     const rep = g[0];
     const renamed = g.map(r => RENAME[r.name]).find(Boolean);
-    const title = renamed || pretty(rep.name.replace(SUFFIX, ""));
+    const title = renamed || pretty(stripSuffix(rep.name));
     return {
       title, url:rep.html_url, count:g.length,
       hasDesc:g.some(r => r.description),
