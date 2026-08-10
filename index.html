@@ -168,6 +168,14 @@ button{ font:inherit; color:inherit; background:none; border:none; cursor:pointe
 .xp-list li{ position:relative; padding-left:1.2rem; font-size:.9rem; color:var(--muted); line-height:1.5; }
 .xp-list li::before{ content:""; position:absolute; left:0; top:.5em; width:6px; height:6px;
   background:var(--accent); transform:rotate(45deg); opacity:.75; }
+.xp-span {
+  display: block;
+  text-align: right;   /* aligns duration to the right */
+  font-size: 0.8em;
+  color: #888;
+  font-style: italic;
+  margin-top: 2px;
+}
 
 /* projects */
 .proj{ padding:.95rem 0; border-top:1px solid var(--rule); }
@@ -630,6 +638,51 @@ document.getElementById("yr").textContent = new Date().toLocaleDateString("en-GB
 /* ---------- reveal ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold:.12, rootMargin:"0px 0px -30px 0px" });
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+  function calculateDuration(rangeStr) {
+    const months = {
+      jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+      jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11
+    };
+
+    const [startStr, endStr] = rangeStr.split(/\s*[-–—]\s*/);
+
+    function parse(str) {
+      str = str.trim();
+      if (/present|current|now/i.test(str)) return new Date();
+      const [mon, year] = str.split(/\s+/);
+      return new Date(parseInt(year, 10), months[mon.slice(0, 3).toLowerCase()], 1);
+    }
+
+    const start = parse(startStr);
+    const end = parse(endStr);
+
+    let totalMonths =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth()) + 1;
+
+    return {
+      years: Math.floor(totalMonths / 12),
+      months: totalMonths % 12
+    };
+  }
+
+  function formatDuration(rangeStr) {
+    const { years, months } = calculateDuration(rangeStr);
+    const parts = [];
+    if (years > 0) parts.push(`${years} yr${years > 1 ? 's' : ''}`);
+    if (months > 0) parts.push(`${months} mo${months > 1 ? 's' : ''}`);
+    return parts.join(' ') || '';
+  }
+
+  document.querySelectorAll('.xp-date').forEach(el => {
+    const raw = el.textContent.trim();
+    const badge = document.createElement('span');
+    badge.className = 'xp-span';
+    badge.textContent = formatDuration(raw);
+    el.textContent = raw + ' ';
+    el.appendChild(badge);
+  });
 </script>
 </body>
 </html>
