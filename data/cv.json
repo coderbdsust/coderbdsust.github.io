@@ -1,0 +1,446 @@
+{
+  "$schema": "./cv.schema.json",
+  "meta": {
+    "title": "Biswajit Debnath — Senior Software Engineer · CV"
+  },
+  "profile": {
+    "name": "Biswajit Debnath",
+    "subtitle": "Senior Software Engineer · Fintech & Full-Stack",
+    "photo": "photo.jpg",
+    "downloadCv": {
+      "label": "Download CV",
+      "url": "https://drive.google.com/drive/folders/1-n3IUckHreircXLPfG2J8nbbQAt38YRX?usp=drive_link"
+    },
+    "contacts": [
+      {
+        "type": "email",
+        "label": "biswajit.sust@gmail.com",
+        "url": "mailto:biswajit.sust@gmail.com"
+      },
+      {
+        "type": "phone",
+        "label": "(+880) 1937-595521",
+        "url": "tel:+8801937595521"
+      },
+      {
+        "type": "github",
+        "label": "coderbdsust",
+        "url": "https://github.com/coderbdsust"
+      },
+      {
+        "type": "linkedin",
+        "label": "in/coderbd",
+        "url": "https://www.linkedin.com/in/coderbd/"
+      },
+      {
+        "type": "location",
+        "label": "Dhaka, Bangladesh"
+      }
+    ]
+  },
+  "theme": {
+    "default": "light"
+  },
+  "github": {
+    "user": "coderbdsust",
+    "limit": 5,
+    "rename": {
+      "tallyapp-ui": "TallyApp",
+      "pos": "Point of Sale",
+      "payment": "CBD Payment",
+      "datavis-assignment": "Data Visualisation",
+      "log-summarizer": "Log Summarizer",
+      "material-admin": "Material Admin"
+    },
+    "acronyms": [
+      "UI",
+      "API",
+      "POS",
+      "CBD",
+      "JS",
+      "TS",
+      "SQL",
+      "AI",
+      "ML",
+      "PDF",
+      "CRUD",
+      "REST",
+      "HR",
+      "ERP"
+    ],
+    "suffixes": [
+      "ui",
+      "api",
+      "app",
+      "web",
+      "backend",
+      "frontend",
+      "server",
+      "client",
+      "services?",
+      "mobile",
+      "admin",
+      "core",
+      "demo",
+      "www",
+      "site"
+    ],
+    "fallback": [
+      {
+        "title": "TallyApp",
+        "url": "https://github.com/coderbdsust/tallyapp-ui",
+        "year": 2026
+      },
+      {
+        "title": "Log Summarizer",
+        "url": "https://github.com/coderbdsust/log-summarizer",
+        "year": 2026
+      },
+      {
+        "title": "Data Visualisation",
+        "url": "https://github.com/coderbdsust/datavis-assignment",
+        "year": 2021
+      }
+    ]
+  },
+  "footer": {
+    "text": "Biswajit Debnath — Curriculum Vitae",
+    "updated": "2026-11"
+  },
+  "layout": {
+    "sidebar": [
+      "skills",
+      "certifications",
+      "awards",
+      "spokenLanguages",
+      "openSource"
+    ],
+    "main": [
+      "summary",
+      "experience",
+      "education",
+      "projects",
+      "activities"
+    ]
+  },
+  "sections": [
+    {
+      "id": "skills",
+      "type": "skillGroups",
+      "title": "Skills",
+      "groups": [
+        {
+          "name": "Languages",
+          "items": [
+            {
+              "label": "Java",
+              "primary": true
+            },
+            "Python",
+            "TypeScript",
+            "JavaScript",
+            "C"
+          ]
+        },
+        {
+          "name": "Backend",
+          "items": [
+            "Spring Boot",
+            "Quarkus",
+            "JaxRS",
+            "Hibernate/JPA",
+            "Microservices",
+            "REST",
+            "JWT/OAuth2"
+          ]
+        },
+        {
+          "name": "Frontend",
+          "items": [
+            "Angular",
+            "Next.js",
+            "React",
+            "RxJS",
+            "D3.js",
+            "Tailwind"
+          ]
+        },
+        {
+          "name": "Data",
+          "items": [
+            "MySQL",
+            "PostgreSQL",
+            "Oracle",
+            "Redis",
+            "MongoDB"
+          ]
+        },
+        {
+          "name": "Cloud & DevOps",
+          "items": [
+            "AWS",
+            "GCP",
+            "Docker",
+            "Nginx",
+            "Linux",
+            "Git",
+            "Maven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "certifications",
+      "type": "linkList",
+      "title": "Certifications",
+      "items": [
+        {
+          "title": "Deep Learning Specialization",
+          "url": "https://coursera.org/share/4d1f9e753c46697ae2f44eff5c8be56b",
+          "meta": "Coursera"
+        },
+        {
+          "title": "Scalable Java Microservices — Spring Boot & Cloud",
+          "url": "https://www.coursera.org/account/accomplishments/certificate/6PMAK69PV89J",
+          "meta": "Coursera"
+        },
+        {
+          "title": "Linux Server Management & Security",
+          "url": "https://www.coursera.org/account/accomplishments/certificate/F53XSR3F96PH",
+          "meta": "Coursera"
+        },
+        {
+          "title": "Data Science in Python",
+          "url": "https://www.coursera.org/account/accomplishments/verify/SXNXTVJQJT6J",
+          "meta": "Coursera"
+        }
+      ]
+    },
+    {
+      "id": "awards",
+      "type": "linkList",
+      "title": "Awards",
+      "items": [
+        {
+          "title": "1st Runner-up — Therap Java Fest 2014",
+          "meta": "Team Blue Pandora, nationwide"
+        }
+      ]
+    },
+    {
+      "id": "spokenLanguages",
+      "type": "linkList",
+      "title": "Languages",
+      "items": [
+        {
+          "title": "English",
+          "meta": "Professional"
+        },
+        {
+          "title": "Bengali",
+          "meta": "Native"
+        }
+      ]
+    },
+    {
+      "id": "openSource",
+      "type": "github",
+      "title": "Open source"
+    },
+    {
+      "id": "summary",
+      "type": "text",
+      "title": "Summary",
+      "text": "Senior software engineer specialising in full-stack development, microservices and complex system integrations. A decade across fintech — payment gateways, open banking and core-banking middleware — alongside healthcare and enterprise platforms. Strong in Java, Spring Boot, Quarkus and Angular, with DevOps-driven CI/CD automation."
+    },
+    {
+      "id": "experience",
+      "type": "timeline",
+      "title": "Experience",
+      "items": [
+        {
+          "role": "Senior Software Engineer",
+          "start": "2025-07",
+          "end": "present",
+          "org": "Softrobotics Bangladesh Ltd",
+          "orgUrl": "https://softrobotics.com.bd/",
+          "place": "Dhaka, BD",
+          "note": "Remote developer for Lidion Bank, Malta",
+          "bullets": [
+            "Built open-banking APIs to BGOF specification, wired into the Internet Banking Gateway for secure API-based financial services (Quarkus, SWIFT API).",
+            "Delivered automated customer onboarding with KYC verification and risk assessment via the C24 and INSCOPE APIs.",
+            "Added beneficiary name verification across European banks before every transaction (Banfico).",
+            "Integrated the Convera payment gateway for compliant processing, with webhooks and PostgreSQL.",
+            "Wrote transaction-monitoring microservices for sanctions screening and AML using rule-based logic (Eastnets)."
+          ]
+        },
+        {
+          "role": "Senior Software Engineer",
+          "start": "2024-10",
+          "end": "2025-06",
+          "org": "mPower Social Enterprises Ltd",
+          "orgUrl": "https://mpower-social.com/",
+          "place": "Dhaka, BD",
+          "bullets": [
+            "Architected the OpenMRS-to-centralised-FHIR-server migration using the Fhir2 module, Spring Boot and MySQL.",
+            "Built diagnostic-reporting, appointment-management and PDF-export microservices against the FHIR server."
+          ]
+        },
+        {
+          "role": "Full Stack Developer",
+          "kind": "Working Student",
+          "start": "2022-02",
+          "end": "2022-04",
+          "org": "SAP SE",
+          "orgUrl": "https://www.sap.com/germany/index.html",
+          "place": "Berlin, DE",
+          "bullets": [
+            "Developed an employee billing time-tracker with Spring Boot and Angular 8.",
+            "Worked on SAP Cloud for Real Estate applications."
+          ]
+        },
+        {
+          "role": "Senior Officer (IT)",
+          "start": "2019-03",
+          "end": "2021-03",
+          "org": "Dutch Bangla Bank Ltd",
+          "orgUrl": "https://www.dutchbanglabank.com/",
+          "place": "Dhaka, BD",
+          "bullets": [
+            "Integrated the eKYC API for Rocket mobile banking, serving 15M+ users (JaxRS, SQL).",
+            "Led middleware integration for DBBL Agent Banking, 5M+ users (Java, Oracle FlexCube).",
+            "Built a billing dashboard for transaction summaries and server status, plus a branch eKYC camera module."
+          ]
+        },
+        {
+          "role": "Junior Engineer",
+          "kind": "Remote",
+          "start": "2018-08",
+          "end": "2019-03",
+          "org": "Kinetik Care",
+          "orgUrl": "https://kinetik.care/",
+          "place": "New York, US",
+          "bullets": [
+            "Engineered automatic billing with Stripe using Node.js, React-Redux and MongoDB.",
+            "Built and adapted the healthcare admin front end in React and Redux."
+          ]
+        },
+        {
+          "role": "Junior Software Engineer",
+          "start": "2016-12",
+          "end": "2018-05",
+          "org": "IPvision Canada Inc",
+          "orgUrl": "https://ipvision.ca/",
+          "place": "Dhaka, BD",
+          "bullets": [
+            "Built a multi-process monitoring tool for the ringID live-streaming platform, serving 5M+ users (JavaFX).",
+            "Developed an admin web app and microservices for virtual-currency management (Spring Boot, Angular 2+)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "type": "education",
+      "title": "Education",
+      "items": [
+        {
+          "degree": "B.Sc. in Computer Science & Engineering",
+          "school": "Shahjalal University of Science & Technology",
+          "schoolUrl": "https://www.sust.edu/",
+          "start": "2012",
+          "end": "2016"
+        },
+        {
+          "degree": "Higher Secondary Certificate",
+          "kind": "Science",
+          "school": "Dhaka City College",
+          "start": "2011"
+        },
+        {
+          "degree": "Secondary School Certificate",
+          "kind": "Science",
+          "school": "Rampura Ekramunnesa Boys' High School",
+          "start": "2009"
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "type": "projects",
+      "title": "Selected projects",
+      "items": [
+        {
+          "name": "TallyApp",
+          "url": "https://github.com/coderbdsust/tallyapp-ui",
+          "year": 2026,
+          "description": "Business management platform for inventory, manufacturing, invoicing, accounting, payroll and reporting, with role-based access control and observability.",
+          "stack": [
+            "Angular 19",
+            "Spring Boot",
+            "Java 21",
+            "PostgreSQL",
+            "Redis",
+            "Docker",
+            "Nginx",
+            "Prometheus",
+            "Grafana"
+          ]
+        },
+        {
+          "name": "Log Summarizer",
+          "url": "https://github.com/coderbdsust/log-summarizer",
+          "year": 2026,
+          "description": "AI-powered observability microservice that reads application logs and flags anomalies, using structured prompting against Google Gemini for incident analysis.",
+          "stack": [
+            "Spring WebFlux",
+            "Java 21",
+            "Google Gemini API",
+            "Docker",
+            "Maven"
+          ]
+        },
+        {
+          "name": "Data Visualisation Lab",
+          "url": "https://github.com/coderbdsust/datavis-assignment",
+          "year": 2021,
+          "description": "Interactive visualisation with linked views and coordinated filtering, built for the Data Visualization course at TU Dresden.",
+          "stack": [
+            "D3.js",
+            "Angular 8"
+          ]
+        },
+        {
+          "name": "Donate Life",
+          "url": "https://github.com/coderbdsust/Donate_Life",
+          "year": 2014,
+          "description": "Blood-donor networking app connecting donors and recipients by group and location. 1st Runner-up at Therap Java Fest 2014.",
+          "stack": [
+            "Java Servlet",
+            "MySQL",
+            "Tomcat",
+            "Maven"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "activities",
+      "type": "timeline",
+      "title": "Activities",
+      "items": [
+        {
+          "role": "Executive Member",
+          "start": "2012",
+          "end": "2016",
+          "org": "CSE Society, SUST",
+          "orgUrl": "https://www.linkedin.com/company/cse-society-sust/",
+          "place": "Sylhet, BD",
+          "bullets": [
+            "Led and organised social and technical events across the university."
+          ]
+        }
+      ]
+    }
+  ]
+}

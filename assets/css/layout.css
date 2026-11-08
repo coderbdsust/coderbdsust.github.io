@@ -1,0 +1,77 @@
+/* ============================================================
+   SHEET
+   ============================================================ */
+.sheet-wrap{ padding:clamp(1rem,4vw,3rem) clamp(.6rem,4vw,2rem) 4rem; }
+.sheet{
+  max-width:1000px; margin-inline:auto; background:var(--paper);
+  box-shadow:var(--shadow); border-radius:4px; overflow:hidden;
+  opacity:0; transform:translateY(14px); animation:sheetIn .7s cubic-bezier(.22,.68,0,1) .05s forwards;
+}
+@keyframes sheetIn{ to{ opacity:1; transform:none; } }
+
+/* header band */
+.cv-head{
+  padding:clamp(1.8rem,4vw,3rem) clamp(1.4rem,4vw,3.2rem) clamp(1.4rem,3vw,2.2rem);
+  border-bottom:1px solid var(--rule);
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(1rem,3vw,1.8rem); align-items:center;
+}
+/* avatar / photo */
+.avatar{
+  position:relative; width:150px; height:150px; border-radius:4px; overflow:hidden; flex:none;
+  background:var(--accent); color:var(--on-accent); display:grid; place-items:center;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.avatar img{ width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+.avatar .mono{ display:none; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:1.9rem; letter-spacing:.02em; }
+.avatar.no-photo .mono{ display:block; }
+.name{ font-family:"Space Grotesk",sans-serif; font-weight:700; letter-spacing:-.02em;
+  font-size:clamp(1.7rem,1.1rem + 2.6vw,2.5rem); line-height:1.05; margin:0; }
+.subtitle{ font-family:"JetBrains Mono",monospace; font-size:clamp(.76rem,.72rem + .2vw,.9rem);
+  letter-spacing:.02em; color:var(--accent); margin:.35rem 0 0; font-weight:500; }
+.contact{ list-style:none; margin:.9rem 0 0; padding:0; display:flex; flex-wrap:wrap; gap:.4rem 1.1rem;
+  font-family:"JetBrains Mono",monospace; font-size:.76rem; color:var(--muted); }
+.contact a{ color:var(--muted); text-decoration:none; display:inline-flex; align-items:center; gap:.4rem;
+  transition:color .25s ease; }
+.contact a:hover{ color:var(--accent); }
+.contact svg{ width:12px; height:12px; opacity:.7; flex:none; }
+.sync{ grid-column:1/-1; margin:.4rem 0 0; font-family:"JetBrains Mono",monospace; font-size:.7rem;
+  color:var(--faint); letter-spacing:.03em; display:flex; align-items:center; gap:.5rem; }
+.sync .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); animation:blink 2.4s infinite; }
+@keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+@media (max-width:560px){ .cv-head{ grid-template-columns:1fr; text-align:left; } }
+
+/* body two columns */
+.cv-body{ display:grid; grid-template-columns:15rem 1fr; }
+.col-side{ background:var(--sidebar); border-right:1px solid var(--rule);
+  padding:clamp(1.4rem,3vw,2.2rem) clamp(1.2rem,2.5vw,1.8rem); }
+.col-main{ padding:clamp(1.4rem,3vw,2.2rem) clamp(1.4rem,4vw,3.2rem); min-width:0; }
+@media (max-width:780px){
+  .cv-body{ grid-template-columns:1fr; }
+  .col-side{ border-right:none; border-bottom:1px solid var(--rule); }
+}
+
+/* section headers */
+.sec{ margin-bottom:1.9rem; }
+.sec:last-child{ margin-bottom:0; }
+.sec-h{ display:flex; align-items:center; gap:.75rem; margin:0 0 1.05rem;
+  font-family:"JetBrains Mono",monospace; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; }
+.sec-h::before{ content:""; width:9px; height:9px; background:var(--accent); flex:none;
+  clip-path:polygon(0 0,100% 0,100% 100%); }
+.sec-h::after{ content:""; flex:1; height:1px; background:var(--rule); }
+.col-side .sec-h{ font-size:.64rem; letter-spacing:.16em; }
+
+/* footer */
+.cv-foot{ padding:1.1rem clamp(1.4rem,4vw,3.2rem); border-top:1px solid var(--rule);
+  display:flex; flex-wrap:wrap; gap:.6rem 1rem; justify-content:space-between;
+  font-family:"JetBrains Mono",monospace; font-size:.68rem; color:var(--faint); letter-spacing:.03em; }
+.cv-foot a{ color:var(--accent); text-decoration:none; }
+
+/* reveal */
+.rv{ opacity:0; transform:translateY(12px); }
+.rv.in{ opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease; }
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  .sheet,.rv{ opacity:1; transform:none; }
+}

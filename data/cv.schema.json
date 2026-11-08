@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CV data",
+  "description": "Content of the CV page. Append a new object to an `items` array to add an entry, or a new object to `sections` (and its id to `layout`) to add a section.",
+  "type": "object",
+  "required": ["profile", "layout", "sections"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "meta": { "type": "object", "properties": { "title": { "type": "string" } } },
+    "profile": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "initials": { "type": "string", "description": "Shown when the photo is missing. Defaults to the name's initials." },
+        "subtitle": { "type": "string" },
+        "photo": { "type": "string", "description": "Path to the photo, relative to index.html." },
+        "downloadCv": {
+          "type": "object",
+          "required": ["url"],
+          "properties": { "label": { "type": "string" }, "url": { "type": "string" } }
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "label"],
+            "properties": {
+              "type": { "enum": ["email", "phone", "github", "linkedin", "location", "link"] },
+              "label": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "theme": { "type": "object", "properties": { "default": { "enum": ["light", "dark", "black"] } } },
+    "github": {
+      "type": "object",
+      "required": ["user"],
+      "properties": {
+        "user": { "type": "string" },
+        "limit": { "type": "integer", "minimum": 1 },
+        "rename": { "type": "object", "additionalProperties": { "type": "string" }, "description": "repo name -> display title" },
+        "acronyms": { "type": "array", "items": { "type": "string" } },
+        "suffixes": { "type": "array", "items": { "type": "string" }, "description": "Repo-name suffixes (regex fragments) that mark parts of one project, e.g. \"ui\"." },
+        "fallback": { "type": "array", "items": { "$ref": "#/$defs/fallbackRepo" } }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "updated": { "$ref": "#/$defs/month", "description": "Shown as \"updated Nov 2026\". Defaults to the current month." }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["sidebar", "main"],
+      "properties": {
+        "sidebar": { "type": "array", "items": { "type": "string" } },
+        "main": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "hidden": { "type": "boolean", "description": "Keep the data but do not render the section." }
+        },
+        "oneOf": [
+          { "properties": { "type": { "const": "text" }, "text": { "type": "string" } }, "required": ["text"] },
+          { "properties": { "type": { "const": "skillGroups" }, "groups": { "type": "array", "items": { "$ref": "#/$defs/skillGroup" } } }, "required": ["groups"] },
+          { "properties": { "type": { "const": "linkList" }, "items": { "type": "array", "items": { "$ref": "#/$defs/linkItem" } } }, "required": ["items"] },
+          { "properties": { "type": { "const": "timeline" }, "items": { "type": "array", "items": { "$ref": "#/$defs/timelineItem" } } }, "required": ["items"] },
+          { "properties": { "type": { "const": "education" }, "items": { "type": "array", "items": { "$ref": "#/$defs/educationItem" } } }, "required": ["items"] },
+          { "properties": { "type": { "const": "projects" }, "items": { "type": "array", "items": { "$ref": "#/$defs/projectItem" } } }, "required": ["items"] },
+          { "properties": { "type": { "const": "github" } } }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "month": { "type": "string", "pattern": "^\\d{4}-(0[1-9]|1[0-2])$", "description": "YYYY-MM" },
+    "point": { "type": "string", "pattern": "^\\d{4}(-(0[1-9]|1[0-2]))?$", "description": "YYYY or YYYY-MM" },
+    "endPoint": { "type": "string", "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$", "description": "YYYY, YYYY-MM or \"present\". Omit for a single point in time." },
+    "fallbackRepo": {
+      "type": "object",
+      "required": ["title", "url"],
+      "properties": { "title": { "type": "string" }, "url": { "type": "string" }, "year": { "type": ["integer", "string"] } }
+    },
+    "skillGroup": {
+      "type": "object",
+      "required": ["name", "items"],
+      "properties": {
+        "name": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "object", "required": ["label"], "properties": { "label": { "type": "string" }, "primary": { "type": "boolean" } } }
+            ]
+          }
+        }
+      }
+    },
+    "linkItem": {
+      "type": "object",
+      "required": ["title"],
+      "properties": { "title": { "type": "string" }, "url": { "type": "string" }, "meta": { "type": "string" } }
+    },
+    "timelineItem": {
+      "type": "object",
+      "required": ["role", "start", "org"],
+      "properties": {
+        "role": { "type": "string" },
+        "kind": { "type": "string", "description": "Shown in brackets after the role, e.g. \"Remote\"." },
+        "start": { "$ref": "#/$defs/point" },
+        "end": { "$ref": "#/$defs/endPoint" },
+        "org": { "type": "string" },
+        "orgUrl": { "type": "string" },
+        "place": { "type": "string" },
+        "note": { "type": "string" },
+        "bullets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "educationItem": {
+      "type": "object",
+      "required": ["degree", "school", "start"],
+      "properties": {
+        "degree": { "type": "string" },
+        "kind": { "type": "string" },
+        "school": { "type": "string" },
+        "schoolUrl": { "type": "string" },
+        "start": { "$ref": "#/$defs/point" },
+        "end": { "$ref": "#/$defs/endPoint" }
+      }
+    },
+    "projectItem": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "year": { "type": ["integer", "string"] },
+        "description": { "type": "string" },
+        "stack": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

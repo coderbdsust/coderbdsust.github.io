@@ -1,0 +1,18 @@
+/* ============================================================
+   TOKENS + THEMES
+   ============================================================ */
+:root, [data-theme="light"]{
+  --desk:#E7E4DB; --paper:#FFFFFF; --ink:#1A1A18; --muted:#6A6A64; --faint:#9A9A92;
+  --rule:#E5E4DD; --sidebar:#F6F5F0; --accent:#1F6B4C; --accent-2:#B26B18; --on-accent:#FFFFFF;
+  --shadow:0 1px 2px rgba(0,0,0,.04), 0 18px 50px -20px rgba(0,0,0,.28);
+}
+[data-theme="dark"]{
+  --desk:#090D0E; --paper:#111A1C; --ink:#EAF0EC; --muted:#8DA39B; --faint:#5E7369;
+  --rule:#22302E; --sidebar:#0D1517; --accent:#85C4A3; --accent-2:#E8A94B; --on-accent:#0C1113;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 24px 60px -24px rgba(0,0,0,.7);
+}
+[data-theme="black"]{
+  --desk:#000000; --paper:#0B0B0B; --ink:#F0F0F0; --muted:#8C8C8C; --faint:#5C5C5C;
+  --rule:#232323; --sidebar:#101010; --accent:#7FE0AE; --accent-2:#F0B450; --on-accent:#000000;
+  --shadow:0 0 0 1px #1c1c1c, 0 24px 60px -24px rgba(0,0,0,.9);
+}

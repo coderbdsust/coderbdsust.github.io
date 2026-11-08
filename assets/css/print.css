@@ -1,0 +1,19 @@
+/* ============================================================
+   PRINT  →  clean A4 résumé
+   ============================================================ */
+@media print{
+  @page{ margin:14mm; }
+  :root, [data-theme]{
+    --desk:#fff; --paper:#fff; --ink:#111; --muted:#333; --faint:#555;
+    --rule:#d5d5d5; --sidebar:#f4f3ef; --accent:#1c5c41; --accent-2:#7a4a10; --on-accent:#fff; --shadow:none;
+  }
+  body{ background:#fff; font-size:10.5px; }
+  .topbar{ display:none !important; }
+  .sheet-wrap{ padding:0; }
+  .sheet{ max-width:none; box-shadow:none; border-radius:0; animation:none; opacity:1; transform:none; }
+  .rv{ opacity:1 !important; transform:none !important; }
+  .avatar, .avatar img{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .chip--pri, .sec-h::before{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .xp, .proj, .edu, .sec{ break-inside:avoid; }
+  .sync .dot{ animation:none; }
+}
